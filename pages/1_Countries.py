@@ -128,7 +128,7 @@ st.set_page_config(
 # ====================================================================================
 #image = Image.open('logo.jpeg')
 #st.sidebar.image(image, width=120)
-st.sidebar.markdown('<h2 style="text-align: center"> Fome Zero Company </h2>', unsafe_allow_html=True)
+st.sidebar.markdown('<h2 style="text-align: center"> Zero Fome Company </h2>', unsafe_allow_html=True)
 st.sidebar.markdown("""___""")
 
 top_4 = df1.loc[:,['restaurant_id', 'country_name']].groupby(['country_name']).count().sort_values(by='restaurant_id', ascending=False).reset_index()
@@ -204,16 +204,23 @@ with st.container():
 st.markdown("""___""")
 
 with st.container():
-    # Número de restaurantes registrados por país
-    country_r = country_with_top_records(df=df1_filtered, group='restaurant_id')
-    fig = bar_plot(df=country_r, x_axis='country_name', y_axis='restaurant_id', plot_title='Quantidade de restaurantes registradas por país')
-    st.plotly_chart(fig, use_container_width=True)
+    col1, col2 = st.columns(2, gap='medium')
+    with col1:
+        # Número de restaurantes registrados por país
+        country_r = country_with_top_records(df=df1_filtered, group='restaurant_id')
+        fig = bar_plot(df=country_r, x_axis='country_name', y_axis='restaurant_id', plot_title='Quantidade de restaurantes registradas por país')
+        st.plotly_chart(fig, use_container_width=True)
+    with col2:
+        df_aux = df1.loc[:, ['restaurant_id', 'country_name']].groupby(['country_name']).count().sort_values(by='restaurant_id', ascending=False).reset_index()
+        fig = px.pie(df_aux, values='restaurant_id', names='country_name')
+        st.plotly_chart(fig, use_container_width=True)
 
 with st.container():
     #Países que possuiem mais cidades registradas
     country_c = country_with_top_records(df= df1_filtered, group='city')  
     fig = bar_plot(df=country_c, x_axis='country_name', y_axis='city', plot_title='Quantidade de cidades registradas por país')
     st.plotly_chart(fig, use_container_width=True)
+
 
 with st.container():
     col1, col2 = st.columns(2, gap='medium')
