@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from PIL import Image
+#from PIL import Image
 import inflection
 from currency_converter import CurrencyConverter
 import folium

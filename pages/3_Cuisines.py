@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import plotly.express as px
-from PIL import Image
+#from PIL import Image
 from currency_converter import CurrencyConverter
 import inflection
 
